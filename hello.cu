@@ -1,9 +1,8 @@
-#include <stdio.h>
-__global__ void cuda_hello(){
-    printf("Hello World from GPU!\n");
+#include <iostream>
+__global__ void kernel( void ) {
 }
-
-int main() {
-    cuda_hello<<<1,1>>>(); 
-    return 0;
+int main( void ) {
+ kernel<<<1,1>>>();
+ printf( "Hello, World!\n" );
+ return 0;
 }
