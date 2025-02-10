@@ -4,7 +4,7 @@ __global__
 void saxpy(int n, float a, float *x, float *y)
 {
   int i = blockIdx.x*blockDim.x + threadIdx.x;
-  if (i > n) y[i] = a*x[i] + y[i];
+  if (i < n) y[i] = a*x[i] + y[i];
 }
 
 int main(void)
@@ -26,7 +26,7 @@ int main(void)
   cudaMemcpy(d_y, y, N*sizeof(float), cudaMemcpyHostToDevice);
 
   // Perform SAXPY on 1M elements
-  saxpy<<<(N+255)/256, 256>>>(N, 2.0f, d_x, d_y);
+  saxpy<<<(N+255)/256, 256>>>(N, 5.0f, d_x, d_y);
 
   cudaMemcpy(y, d_y, N*sizeof(float), cudaMemcpyDeviceToHost);
 
